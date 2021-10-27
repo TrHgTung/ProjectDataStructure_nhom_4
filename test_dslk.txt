@@ -1,0 +1,5 @@
+nguyen,thai,A0001,nam
+bui,trang,A0002,nu
+tue,nghi,A0003,nu
+tran,lam,A0004,nam
+nguyen,suong,A0005,khongXacDinh
