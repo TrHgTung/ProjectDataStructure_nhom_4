@@ -1,4 +1,181 @@
-#include<iostream>	//find replace 'sv' thanh 'khach'
+#include <iostream>	//Quan li thu vien gom nhieu Sach		//main file
+#include <string.h>
+#include <bits/stdc++.h>
+#include <Windows.h>
+
+using namespace std;
+//tao cau truc sach
+struct Sach {
+    int ma;
+    char ten[100];
+};
+//tao cau truc danh sach lien ket don
+typedef struct Node
+{
+    Sach *data;
+    Node *pNext;
+}Node;
+struct SingleList
+{
+    Node *pHead;
+};
+//khoi tao danh sach lien ket don
+void Initialize(SingleList *&list)
+{
+    list = new SingleList;
+    list->pHead = NULL;
+}
+//nhap thong tin Sach
+Sach *NhapSach()
+{
+    Sach *sa = new Sach;	//khoi tao Sach
+    
+    cout << "Nhap ma so sach: ";
+    cin >> sa->ma;
+    cin.ignore();
+    cout << "Nhap ten sach: ";
+    gets(sa->ten);
+    return sa;
+}
+//tao node sinh vien
+Node *CreateNode(Sach *sa)
+{
+    Node *pNode = new Node;
+    if(pNode != NULL) {
+        pNode->data = sa;
+        pNode->pNext = NULL;
+    }
+    else {
+        cout<<"Cap phat bo nho that bai!!!";
+    }
+    return pNode;
+}
+//them node vao cuoi danh sach
+void InsertLast(SingleList *&list,Sach *sa) {
+    Node *pNode = CreateNode(sa);
+    if(list->pHead == NULL)
+    {
+        list->pHead = pNode;
+    }
+    else
+    {
+        Node *pTmp = list->pHead;
+         
+        while(pTmp->pNext != NULL)
+        {
+            pTmp = pTmp->pNext;
+        }
+        pTmp->pNext = pNode;
+    }
+}
+//hien thi danh sach
+void PrintList(SingleList *list)
+{
+    Node *pTmp = list->pHead;
+    if(pTmp == NULL) {
+        cout << "Danh sach rong";
+        return;
+    }
+    while(pTmp != NULL)
+    {
+        Sach *sa = pTmp->data;
+        cout << sa->ma << "\t" << sa->ten << "\n";
+        pTmp = pTmp->pNext;
+    }
+}
+//sap xep
+void SortList(SingleList *&list)
+{
+    for(Node *pTmp = list->pHead ; pTmp != NULL ; pTmp = pTmp->pNext)
+    {
+        for(Node *pTmp2 = pTmp->pNext ; pTmp2 != NULL ; pTmp2 = pTmp2->pNext)
+        {   
+            Sach *saTmp = pTmp->data;
+            Sach *saTmp2 = pTmp2->data;
+            if(saTmp2->ma < saTmp->ma)
+            {
+                int ma = saTmp->ma;
+                char ten[150];
+                strcpy(ten, saTmp->ten);
+                 
+                saTmp->ma = saTmp2->ma;
+                strcpy(saTmp->ten, saTmp2->ten);
+                saTmp2->ma = ma;
+                strcpy(saTmp2->ten, ten);             
+            }
+        }   
+    }
+}
+//xoa
+void RemoveNode(SingleList *&list, int ma)
+{
+    Node *pDel = list->pHead;
+    if(pDel == NULL) {
+        cout << "Danh sach rong!";
+    }
+    else
+    {
+        Node *pPre = NULL;
+        while(pDel != NULL)
+        {
+            Sach *sa = pDel->data;
+            if(sa->ma == ma)
+                break;
+            pPre = pDel;
+            pDel = pDel->pNext;
+        }
+        if(pDel == NULL)
+        {
+            cout << "Khong tim thay ma sach co san: " << ma;
+        }
+        else {
+            if(pDel == list->pHead) {
+                list->pHead = list->pHead->pNext;
+                pDel->pNext = NULL;
+                delete pDel;
+                pDel= NULL;
+            }
+            else {
+                pPre->pNext = pDel->pNext;
+                pDel->pNext = NULL;
+                delete pDel;
+                pDel = NULL;
+            }
+        }
+    }
+}
+int main(int argc, char** argv) {	//main
+    SingleList *list;
+    Initialize(list);
+    cout << "-------------- CHAO MUNG DEN VOI THU VIEN SU PHAM HCMUE ----------------" << endl << endl << endl;
+    cout << "Ban can phai khai bao mot vai thong tin de co the truy cap vao thu vien" << endl;
+    Sleep(2000);
+    system("cls");
+    cout << "-------------- CHAO MUNG DEN VOI THU VIEN SU PHAM HCMUE ----------------" << endl << endl << endl;
+    Sach *first_book = NhapSach();
+    InsertLast(list, first_book);	cout << endl << endl;
+    Sach *second_book = NhapSach();
+    InsertLast(list , second_book);		cout << endl << endl;
+    Sach *third_book = NhapSach();
+    InsertLast(list, third_book);	cout << endl << endl;
+    PrintList(list);
+    SortList(list);
+    cout << "\nSau khi sap xep:\n";
+    PrintList(list);
+    cout << "\Ban muon loai bo quyen sach co ma la: ";
+    int ma;
+    cin >> ma;
+    RemoveNode(list, ma);
+    cout << "\nSau khi xoa:\n";
+    PrintList(list);
+    cout << endl << endl;
+    cout << "************* Chuong trinh da ket thuc, nhom I_nhom_4 xin dung lai tai day ************" << endl;
+    
+    return 0;
+}
+
+
+/*#include<iostream>	//find replace 'sv' thanh 'khach'
 #include<string>		// DANH SACH LIEN KET ____ QUAN LY THU VIEN
 #include<fstream>
 #include<bits/stdc++.h>
@@ -160,5 +337,4 @@ int main(){
 	
 	return 0;
 }
-
-
+*/
