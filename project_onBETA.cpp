@@ -37,7 +37,7 @@ Sach *NhapSach()
     gets(sa->ten);
     return sa;
 }
-//tao node sinh vien
+//tao node sach
 Node *CreateNode(Sach *sa)
 {
     Node *pNode = new Node;
