@@ -1,14 +1,18 @@
-#include <iostream>	//Quan li thu vien gom nhieu Sach		//main file
+#include <iostream>	//Quan li thu vien gom nhieu Sach		//main file 17h38 -- 2/11
 #include <string.h>
 #include <bits/stdc++.h>
 #include <Windows.h>
 
 using namespace std;
+
 //tao cau truc sach
-struct Sach {
+typedef struct Sach {
     int ma;
     char ten[100];
-};
+    char tacgia[100];
+    char nxb[150];
+    char namxb[10];
+}Sach;
 //tao cau truc danh sach lien ket don
 typedef struct Node
 {
@@ -19,25 +23,57 @@ struct SingleList
 {
     Node *pHead;
 };
+
 //khoi tao danh sach lien ket don
 void Initialize(SingleList *&list)
 {
     list = new SingleList;
     list->pHead = NULL;
 }
+//doc ghi file
+/*void Filein(Sach *sa){	//ON_dev
+	ifstream filein("input.txt");
+	while(filein.eof() == true){
+		Sach *sa= new Sach;
+		
+		cout << "Nhap ma so sach: ";
+	    cin >> sa->ma;
+	    cin.ignore();
+	    cout << "Nhap ten sach: ";
+	    gets(sa->ten);
+	    cout << "Nhap ten tac gia: " ;
+	    gets(sa->tacgia);
+	    cout << "Nhap ten nha xuat ban sach: " ;
+	    gets(sa->nxb);
+	    cout << "Nhap nam xuat ban sach: ";
+	    cin >> sa->namxb;
+	    cin.ignore();
+    
+		
+		//them(ds_khach, a);
+	}
+	filein.close();
+}*/
 //nhap thong tin Sach
-Sach *NhapSach()
-{
-    Sach *sa = new Sach;	//khoi tao Sach
+Sach *NhapSach() {
+    Sach *sa = new Sach; //khoi tao Sach
     
     cout << "Nhap ma so sach: ";
     cin >> sa->ma;
     cin.ignore();
     cout << "Nhap ten sach: ";
     gets(sa->ten);
+    cout << "Nhap ten tac gia: " ;
+    gets(sa->tacgia);
+    cout << "Nhap ten nha xuat ban sach: " ;
+    gets(sa->nxb);
+    cout << "Nhap nam xuat ban sach: ";
+    cin >> sa->namxb;
+    cin.ignore();
+    
     return sa;
 }
-//tao node sach
+//tao node sinh vien
 Node *CreateNode(Sach *sa)
 {
     Node *pNode = new Node;
@@ -46,7 +82,7 @@ Node *CreateNode(Sach *sa)
         pNode->pNext = NULL;
     }
     else {
-        cout<<"Cap phat bo nho that bai!!!";
+        cout << "Cap phat bo nho that bai!";
     }
     return pNode;
 }
@@ -79,7 +115,7 @@ void PrintList(SingleList *list)
     while(pTmp != NULL)
     {
         Sach *sa = pTmp->data;
-        cout << sa->ma << "\t" << sa->ten << "\n";
+        cout << sa->ma << "\t\t" << sa->ten << "\t\t" << sa->tacgia << "\t\t" << sa->nxb << "\t\t"<< sa->namxb<< endl;
         pTmp = pTmp->pNext;
     }
 }
@@ -95,18 +131,41 @@ void SortList(SingleList *&list)
             if(saTmp2->ma < saTmp->ma)
             {
                 int ma = saTmp->ma;
-                char ten[150];
+                char ten[100];
+                char tacgia[100];
+                char nxb[150];
+                char namxb[10];
+                
                 strcpy(ten, saTmp->ten);
-                 
+                
                 saTmp->ma = saTmp2->ma;
                 strcpy(saTmp->ten, saTmp2->ten);
                 saTmp2->ma = ma;
-                strcpy(saTmp2->ten, ten);             
+                strcpy(saTmp2->ten, ten);
+				//--------- modified ten tac gia ------------
+				strcpy(tacgia, saTmp->tacgia);
+                
+               // saTmp->ma = saTmp2->ma;
+              //  saTmp->tacgia = saTmp2->tacgia;
+                strcpy(saTmp->tacgia, saTmp2->tacgia);
+               // saTmp2->ma = ma;
+           //     saTmp2->tacgia = tacgia;
+                strcpy(saTmp2->tacgia, tacgia);
+                
+				//--------- modified ten nha xuat ban (nxb) ------------
+				strcpy(nxb, saTmp->nxb);
+                strcpy(saTmp->nxb, saTmp2->nxb);
+                strcpy(saTmp2->nxb, nxb);
+                
+                //--------- modified string nam xuat ban (namxb) ------------
+            	strcpy(namxb, saTmp->namxb);
+                strcpy(saTmp->namxb, saTmp2->namxb);
+                strcpy(saTmp2->namxb, namxb);
             }
         }   
     }
 }
-//xoa
+//xoa Node
 void RemoveNode(SingleList *&list, int ma)
 {
     Node *pDel = list->pHead;
@@ -147,12 +206,13 @@ void RemoveNode(SingleList *&list, int ma)
 int main(int argc, char** argv) {	//main
     SingleList *list;
     Initialize(list);
-    cout << "-------------- CHAO MUNG DEN VOI THU VIEN SU PHAM HCMUE ----------------" << endl << endl << endl;
+    cout << "-------------- CHAO MUNG DEN VOI THU VIEN DH SU PHAM HCMUE ----------------" << endl << endl << endl;
     cout << "Ban can phai khai bao mot vai thong tin de co the truy cap vao thu vien" << endl;
     Sleep(2000);
     system("cls");
-    cout << "-------------- CHAO MUNG DEN VOI THU VIEN SU PHAM HCMUE ----------------" << endl << endl << endl;
-    Sach *first_book = NhapSach();
+    cout << "-------------- CHAO MUNG DEN VOI THU VIEN DH SU PHAM HCMUE ----------------" << endl << endl << endl;
+    //Filein(Sach);
+	Sach *first_book = NhapSach();
     InsertLast(list, first_book);	cout << endl << endl;
     Sach *second_book = NhapSach();
     InsertLast(list , second_book);		cout << endl << endl;
@@ -162,179 +222,17 @@ int main(int argc, char** argv) {	//main
     SortList(list);
     cout << "\nSau khi sap xep:\n";
     PrintList(list);
-    cout << "\Ban muon loai bo quyen sach co ma la: ";
+    
+    Sleep(3500);
+    system("cls");
+    cout << "Ban muon loai bo quyen sach co ma la: ";
     int ma;
     cin >> ma;
     RemoveNode(list, ma);
-    cout << "\nSau khi xoa:\n";
+    cout << "\nKet qua sau khi loai bo: \n";
     PrintList(list);
     cout << endl << endl;
     cout << "************* Chuong trinh da ket thuc, nhom I_nhom_4 xin dung lai tai day ************" << endl;
     
     return 0;
 }
-
-
-/*#include<iostream>	//find replace 'sv' thanh 'khach'
-#include<string>		// DANH SACH LIEN KET ____ QUAN LY THU VIEN
-#include<fstream>
-#include<bits/stdc++.h>
-#include<Windows.h>
-
-using namespace std;
-
-typedef struct diem{
-	float dai_so = 0;
-	float Mac = 0;
-	float cpp = 0;
-}diem;
-
-typedef struct khach{
-	string ho;
-	string ten;
-	string ma_khach;
-	string phai;
-	diem ds_diem;
-	
-}khach;
-
-struct node_khach{
-	khach data;	//data
-	node_khach *pnext;	//pointer tro toi data
-};
-
-typedef struct danh_sach_khach{
-	node_khach *phead = NULL;
-	node_khach *ptail = NULL;
-}danh_sach_khach;
-
-typedef struct node_khach node_khach;
-void load_file(danh_sach_khach &ds_khach)
-istream&operator >> (istream&is, khach &a);	//expected intializer before istream error
-void menu();
-node_khach* khoi_tao_node(khach x);
-void them(danh_sach_khach &ds_khach, khach x);
-void xuat(danh_sach_khach ds_khach);
-
-void load_file(danh_sach_khach &ds_khach){
-	ifstream filein("test_dslk.txt"); //duong dan file D:\Cau truc du lieu\test_dslk.txt
-	
-	while(filein.eof() == false){
-		khach a;
-		getline(filein, a.ho, ',');
-		getline(filein, a.ten, ',');
-		getline(filein, a.ma_khach, ',');
-		getline(filein, a.phai, ',');
-		filein >> a.ds_diem.dai_so;		filein.ignore();	//vuong dau phay trong bo test
-		filein >> a.ds_diem.Mac;	filein.ignore();	//tuongtu
-		filein >> a.ds_diem.cpp;	filein.ignore();	// bo dau \n xuong dong
-		
-		them(ds_khach, a);
-	}
-	//khach a;
-
-	filein.close();
-}
-
-
-
-void menu(){	//Xu ly chinh
-	//---Settings
-	danh_sach_khach ds_khach;
-	// ---- load du lieu nhap tu file co san
-	load_file(ds_khach);
-	//---- menu -----
-	bool kt_menu = true;
-	while (kt_menu == true){
-		system("cls");
-		cout << "1. Nhap thong tin khach" << endl;
-		cout << "2. Xuat danh sach khach" << endl;
-		cout << "0. Thoat chuong trinh" << endl;
-		
-		cout << "Chon 1 lua chon"; 	int choice;	cin >> choice;
-		//khach x;
-		switch(choice){
-			//khach x;
-			case 1: 
-				//khach x;
-				int soluong;	cout << "Nhap so luong khach can them:" ;	cin >> soluong;
-				cin.ignore();
-				for(int i=1; i<= soluong;i++){
-					cout << "\t\t ----------- Nhap Quy Khach thu "<< i << " ----------"<<endl; //trang tri
-					
-					khach x;	// luu tam du lieu ma ng dung nhap vao
-					//cin.ignore();	
-					cin >> x; 
-					//getline(cin, x); cin.ignore();
-					them(ds_khach, x);
-				}
-				break;
-			
-			case 2:
-				xuat(ds_khach);
-				system("pause");
-				break;
-				
-			case 0:
-				kt_menu = false;
-				break;
-		}
-	}
-	
-}
-
-
-istream&operator >> (istream&is, khach&a){
-	cout << "Nhap ho: ";	getline(is, a.ho);
-	cout << "Nhap ten: ";	getline(is, a.ten);
-	cout << "Nhap phai: "	;	getline(is, a.phai);
-	cout << "Nhap ma so khach (ID): ";	getline(is, a.ma_khach);
-	return is;
-}
-
-
-node_khach* khoi_tao_node(khach x){
-	node_khach *p = new node_khach;
-	p->data = x;
-	p->pnext = NULL;
-}
-
-
-void them(danh_sach_khach &ds_khach, khach x){
-	node_khach *p = khoi_tao_node(x);
-	if(ds_khach.phead == NULL){	//danh sach rong && dau cuoi = p
-		//node_khach *p = khoi_tao_node(x);
-		ds_khach.phead = ds_khach.ptail=p;
-	}
-	else{	// danh sach co n phan tu && them dau cuoi
-		ds_khach.ptail->pnext = p;
-		ds_khach.ptail = p;
-	}
-}
-
-//check lai ham void them va ham void xuat
-void xuat(danh_sach_khach ds_khach){
-	for(node_khach *k = ds_khach.phead; k != NULL; k = k->pnext){
-		//cout << "\t\t ---------- Sinh vien thu " << i++ << " -----------" << endl;
-		cout << "Ho va ten: " << k->data.ho << " " << k->data.ten << endl;
-		cout << "Ma Khach Hang: " << k->data.ma_khach << endl;
- 		cout << "Gioi tinh (phai): " << k->data.phai << endl;
- 		cout << "-------- BANG THONG TIN ------------" << endl;
- 		
- 		cout << "Diem dai so: " << k->data.ds_diem.dai_so << endl;
- 		cout << "Diem Triet hoc Mac Lenin: " << k->data.ds_diem.Mac << endl;
- 		cout << "Diem Lap trinh co ban C++: " << k->data.ds_diem.cpp << endl;
- 		//cout << "Diem Triet hoc Mac Lenin: " << k->data.ds_diem.Mac << endl;
-	}
-}
-
-int main(){
-	
-	//danh_sach_khach ds_khach;
-	
-	//ds_khach.phead->data.phai;
-	menu();	//goi menu ra %% menu la ham chinh, main chi viec goi lai menu()
-	
-	return 0;
-}
-*/
