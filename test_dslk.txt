@@ -1,5 +1,3 @@
-nguyen,thai,A0001,nam
-bui,trang,A0002,nu
-tue,nghi,A0003,nu
-tran,lam,A0004,nam
-nguyen,suong,A0005,khongXacDinh
+01,The Gioi Dong Vat,Nguyen Van A,NXB Tuoi Tre
+02,Luat Phap Viet Nam,Tran Nhat B,NXB Giao Duc
+03,Tin Hoc Dai Cuong,Vo Van C,NXB Giao Duc Viet Nam
