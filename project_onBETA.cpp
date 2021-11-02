@@ -1,4 +1,4 @@
-#include <iostream>	//Quan li thu vien gom nhieu Sach		//main file 17h38 -- 2/11
+#include <iostream>	//Quan li thu vien gom nhieu Sach		//main file
 #include <string.h>
 #include <bits/stdc++.h>
 #include <Windows.h>
@@ -204,35 +204,44 @@ void RemoveNode(SingleList *&list, int ma)
     }
 }
 int main(int argc, char** argv) {	//main
-    SingleList *list;
-    Initialize(list);
-    cout << "-------------- CHAO MUNG DEN VOI THU VIEN DH SU PHAM HCMUE ----------------" << endl << endl << endl;
-    cout << "Ban can phai khai bao mot vai thong tin de co the truy cap vao thu vien" << endl;
-    Sleep(2000);
-    system("cls");
-    cout << "-------------- CHAO MUNG DEN VOI THU VIEN DH SU PHAM HCMUE ----------------" << endl << endl << endl;
-    //Filein(Sach);
-	Sach *first_book = NhapSach();
-    InsertLast(list, first_book);	cout << endl << endl;
-    Sach *second_book = NhapSach();
-    InsertLast(list , second_book);		cout << endl << endl;
-    Sach *third_book = NhapSach();
-    InsertLast(list, third_book);	cout << endl << endl;
-    PrintList(list);
-    SortList(list);
-    cout << "\nSau khi sap xep:\n";
-    PrintList(list);
+	string pass;	//pass = abc
+	cout << "------------- DANG NHAP VAO CHUONG TRINH -------------" <<endl << endl;
+	cout << "Nhap mat khau cua admin:  ";		cin >> pass;
+	if(pass == "abc"){
+		system("cls");
+		
+		SingleList *list;
+	    Initialize(list);
+	    cout << "-------------- CHAO MUNG DEN VOI THU VIEN DH SU PHAM HCMUE ----------------" << endl << endl << endl;
+	    cout << "Ban can phai khai bao mot vai thong tin de co the truy cap vao thu vien" << endl;
+	    Sleep(2000);
+	    system("cls");
+	    cout << "-------------- CHAO MUNG DEN VOI THU VIEN DH SU PHAM HCMUE ----------------" << endl << endl << endl;
+	    //Filein(Sach);
+		Sach *first_book = NhapSach();
+	    InsertLast(list, first_book);	cout << endl << endl;
+	    Sach *second_book = NhapSach();
+	    InsertLast(list , second_book);		cout << endl << endl;
+	    Sach *third_book = NhapSach();
+	    InsertLast(list, third_book);	cout << endl << endl;
+	    PrintList(list);
+	    SortList(list);
+	    cout << "\nSau khi sap xep:\n";
+	    PrintList(list);
+	    
+	    Sleep(3500);
+	    system("cls");
+	    cout << "Ban muon loai bo quyen sach co ma la: ";
+	    int ma;
+	    cin >> ma;
+	    RemoveNode(list, ma);
+	    cout << "\nKet qua sau khi loai bo: \n";
+	    PrintList(list);
+	    cout << endl << endl;
+	    cout << "************* Chuong trinh da ket thuc, nhom I_nhom_4 xin dung lai tai day ************" << endl;
+	}
+	else cout<<pass << " la mat khau sai, vui long nhap lai. Nhan Enter de thoat";
     
-    Sleep(3500);
-    system("cls");
-    cout << "Ban muon loai bo quyen sach co ma la: ";
-    int ma;
-    cin >> ma;
-    RemoveNode(list, ma);
-    cout << "\nKet qua sau khi loai bo: \n";
-    PrintList(list);
-    cout << endl << endl;
-    cout << "************* Chuong trinh da ket thuc, nhom I_nhom_4 xin dung lai tai day ************" << endl;
     
     return 0;
 }
